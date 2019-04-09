@@ -60,8 +60,13 @@ if ($path -ne $null) {
 }
 
 Function Get-ServiceInfo($name) {
+    # Handle wildcard searches
+    if ($name -like '*'){
+        $svc = Get-Service | Where-Object { $_.Name -like $name -or $_.DisplayName -like $name }
+    } else {
+        $svc = Get-Service | Where-Object { $_.Name -eq $name -or $_.DisplayName -eq $name }
+    }
     # Need to get new objects so we have the latest info
-    $svc = Get-Service | Where-Object { $_.Name -eq $name -or $_.DisplayName -eq $name }
     $wmi_svc = Get-CimInstance -ClassName Win32_Service -Filter "name='$($svc.Name)'"
 
     # Delayed start_mode is in reality Automatic (Delayed), need to check reg key for type
