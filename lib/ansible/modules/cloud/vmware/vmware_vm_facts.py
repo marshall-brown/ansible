@@ -170,6 +170,8 @@ class VmwareVmFacts(PyVmomi):
                     "vm_network": net_dict,
                     "esxi_hostname": esxi_hostname,
                     "cluster": cluster_name,
+                    "last booted timestamp": vm.runtime.bootTime,
+                    "CPU": summary.config.numCpu,
                 }
             }
 
