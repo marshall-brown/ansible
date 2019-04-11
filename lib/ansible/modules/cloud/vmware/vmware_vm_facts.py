@@ -172,6 +172,8 @@ class VmwareVmFacts(PyVmomi):
                     "cluster": cluster_name,
                     "last booted timestamp": vm.runtime.bootTime,
                     "cpu_num": summary.config.numCpu,
+                    "memory_sizeMB": summary.config.memorySizeMB,
+                    "cores_per_sock": vm.config.hardware.numCoresPerSocket,
                 }
             }
 
